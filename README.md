@@ -1,6 +1,6 @@
 # FlappyBirdLikeAndroid
-Made for IUT Blagnac Android course
-Clone of the famous Flappy Bird
+- Made for IUT Blagnac Android course
+- Clone of the famous Flappy Bird
 
 # Features
 - Animated game
