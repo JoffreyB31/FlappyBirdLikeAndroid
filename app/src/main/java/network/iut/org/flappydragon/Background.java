@@ -3,8 +3,6 @@ package network.iut.org.flappydragon;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.util.Log;
 
 public class Background {
     // Screen properties
@@ -43,27 +41,37 @@ public class Background {
 
     public void draw(Canvas canvas) {
         // Reset the parralax vars when it reach the screen width
-        if (offsetB1 <= - background1.getWidth()) { offsetB1 = 0; }
-        if (offsetB2 <= - background2.getWidth()) { offsetB2 = 0; }
-        if (offsetB3 <= - background3.getWidth()) { offsetB3 = 0; }
-        if (offsetB4 <= - background4.getWidth()) { offsetB4 = 0; }
-        if (offsetB5 <= - background5.getWidth()) { offsetB5 = 0; }
+        if (offsetB1 <= -background1.getWidth()) {
+            offsetB1 = 0;
+        }
+        if (offsetB2 <= -background2.getWidth()) {
+            offsetB2 = 0;
+        }
+        if (offsetB3 <= -background3.getWidth()) {
+            offsetB3 = 0;
+        }
+        if (offsetB4 <= -background4.getWidth()) {
+            offsetB4 = 0;
+        }
+        if (offsetB5 <= -background5.getWidth()) {
+            offsetB5 = 0;
+        }
 
         canvas.drawBitmap(background1, offsetB1, 0, null);
-        canvas.drawBitmap(background1, offsetB1+background1.getWidth(), 0, null);
-        canvas.drawBitmap(background2, offsetB2, view.getHeight()-background2.getHeight(), null);
-        canvas.drawBitmap(background2, offsetB2+background2.getWidth(), view.getHeight()-background2.getHeight(), null);
-        canvas.drawBitmap(background3, offsetB3, view.getHeight()-background3.getHeight(), null);
-        canvas.drawBitmap(background3, offsetB3+background3.getWidth(), view.getHeight()-background3.getHeight(), null);
-        canvas.drawBitmap(background4, offsetB4, view.getHeight()-background4.getHeight(), null);
-        canvas.drawBitmap(background4, offsetB4+background4.getWidth(), view.getHeight()-background4.getHeight(), null);
-        canvas.drawBitmap(background5, offsetB5, view.getHeight()-background5.getHeight(), null);
-        canvas.drawBitmap(background5, offsetB5+background5.getWidth(), view.getHeight()-background5.getHeight(), null);
+        canvas.drawBitmap(background1, offsetB1 + background1.getWidth(), 0, null);
+        canvas.drawBitmap(background2, offsetB2, view.getHeight() - background2.getHeight(), null);
+        canvas.drawBitmap(background2, offsetB2 + background2.getWidth(), view.getHeight() - background2.getHeight(), null);
+        canvas.drawBitmap(background3, offsetB3, view.getHeight() - background3.getHeight(), null);
+        canvas.drawBitmap(background3, offsetB3 + background3.getWidth(), view.getHeight() - background3.getHeight(), null);
+        canvas.drawBitmap(background4, offsetB4, view.getHeight() - background4.getHeight(), null);
+        canvas.drawBitmap(background4, offsetB4 + background4.getWidth(), view.getHeight() - background4.getHeight(), null);
+        canvas.drawBitmap(background5, offsetB5, view.getHeight() - background5.getHeight(), null);
+        canvas.drawBitmap(background5, offsetB5 + background5.getWidth(), view.getHeight() - background5.getHeight(), null);
 
         offsetB1--;
-        offsetB2-=2;
-        offsetB3-=3;
-        offsetB4-=4;
-        offsetB5-=5;
+        offsetB2 -= 2;
+        offsetB3 -= 3;
+        offsetB4 -= 4;
+        offsetB5 -= 5;
     }
 }

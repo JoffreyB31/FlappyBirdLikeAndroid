@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
 
 public class Player {
-    /** Static bitmap to reduce memory usage. */
+    /**
+     * Static bitmap to reduce memory usage.
+     */
     public static Bitmap globalBitmap;
     private Bitmap bitmap;
     private final Bitmap bitmapUp;
@@ -30,13 +31,16 @@ public class Player {
         this.context = context;
         int height = context.getResources().getDisplayMetrics().heightPixels;
         int width = context.getResources().getDisplayMetrics().widthPixels;
-        if(globalBitmap == null) {
+        if (globalBitmap == null) {
             globalBitmap = Util.decodeSampledBitmapFromResource(context.getResources(), R.drawable.frame1, Float.valueOf(height / 10f).intValue(), Float.valueOf(width / 10f).intValue());
         }
         this.bitmap = globalBitmap;
-        this.bitmapUp = Util.decodeSampledBitmapFromResource(context.getResources(), R.drawable.frame3, Float.valueOf(height / 10f).intValue(), Float.valueOf(width / 10f).intValue());;
-        this.bitmapDown = Util.decodeSampledBitmapFromResource(context.getResources(), R.drawable.frame1, Float.valueOf(height / 10f).intValue(), Float.valueOf(width / 10f).intValue());;
-        this.bitmapTap = Util.decodeSampledBitmapFromResource(context.getResources(), R.drawable.frame2, Float.valueOf(height / 10f).intValue(), Float.valueOf(width / 10f).intValue());;
+        this.bitmapUp = Util.decodeSampledBitmapFromResource(context.getResources(), R.drawable.frame3, Float.valueOf(height / 10f).intValue(), Float.valueOf(width / 10f).intValue());
+        ;
+        this.bitmapDown = Util.decodeSampledBitmapFromResource(context.getResources(), R.drawable.frame1, Float.valueOf(height / 10f).intValue(), Float.valueOf(width / 10f).intValue());
+        ;
+        this.bitmapTap = Util.decodeSampledBitmapFromResource(context.getResources(), R.drawable.frame2, Float.valueOf(height / 10f).intValue(), Float.valueOf(width / 10f).intValue());
+        ;
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();
         this.frameTime = 3;
@@ -54,7 +58,7 @@ public class Player {
     }
 
     private float getPosTabIncrease() {
-        return - view.getHeight() / 100;
+        return -view.getHeight() / 100;
     }
 
     private float getTabSpeed() {
@@ -64,7 +68,7 @@ public class Player {
     public void move() {
         changeToNextFrame();
 
-        if(speedY < 0){
+        if (speedY < 0) {
             // The character is moving up
             Log.i("Move", "Moving up");
             changePlayerImage("UP");
@@ -76,7 +80,7 @@ public class Player {
             this.speedY += getSpeedTimeDecrease();
         }
 
-        if(this.speedY > getMaxSpeed()){
+        if (this.speedY > getMaxSpeed()) {
             // speed limit
             this.speedY = getMaxSpeed();
         }
@@ -88,7 +92,7 @@ public class Player {
         int homeHeight = Math.round(getHomeBarHeight(this.context));
 
         // Prevent the dragon to overflow the screen
-        if (nextHeight  > view.getHeight() - homeHeight) { // Bottom
+        if (nextHeight > view.getHeight() - homeHeight) { // Bottom
             // Next position = bottom - homeBarHeight
             this.y = view.getHeight() - (homeHeight - 10);
             view.gameOver();
@@ -110,9 +114,9 @@ public class Player {
         }
     }
 
-    protected void changeToNextFrame(){
+    protected void changeToNextFrame() {
         this.frameTimeCounter++;
-        if(this.frameTimeCounter >= this.frameTime){
+        if (this.frameTimeCounter >= this.frameTime) {
             //TODO Change frame
             this.frameTimeCounter = 0;
         }
@@ -127,10 +131,10 @@ public class Player {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, x, y , null);
+        canvas.drawBitmap(bitmap, x, y, null);
     }
 
-    public void changePlayerImage (String type) {
+    public void changePlayerImage(String type) {
         switch (type) {
             case "UP":
                 this.bitmap = this.bitmapUp;

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class GameMenuHome extends Activity{
+public class GameMenuHome extends Activity {
     private SharedPreferences prefs;
 
     @Override
@@ -40,7 +40,7 @@ public class GameMenuHome extends Activity{
         scoreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent scoreIntent = new Intent(getApplicationContext(), GameMenuScore.class);
+                Intent scoreIntent = new Intent(getApplicationContext(), GameMenuScores.class);
                 startActivity(scoreIntent);
             }
         });

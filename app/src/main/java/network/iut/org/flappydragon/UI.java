@@ -32,7 +32,7 @@ public class UI {
         float x = evt.getX();
         float y = evt.getY();
 
-        if (destRect.contains((int) x,(int) y)) {
+        if (destRect.contains((int) x, (int) y)) {
             view.pause();
         }
     }

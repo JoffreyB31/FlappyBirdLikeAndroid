@@ -23,7 +23,7 @@ public class Tuyaux {
     private LinearGradient gradient;
     private LinearGradient lastGradient;
 
-    public Tuyaux (Context context, GameView view) {
+    public Tuyaux(Context context, GameView view) {
         this.context = context;
         this.view = view;
         this.offset = view.getWidth() + 10;
@@ -47,7 +47,7 @@ public class Tuyaux {
         }
 
         // Draw
-        for(Rect[] tuyau : tuyaux) {
+        for (Rect[] tuyau : tuyaux) {
             tuyau[0].set(tuyau[0].left + speed, tuyau[0].top, tuyau[0].right + speed, tuyau[0].bottom);
             tuyau[1].set(tuyau[1].left + speed, tuyau[1].top, tuyau[1].right + speed, tuyau[1].bottom);
             canvas.drawRect(tuyau[0], paint);
@@ -74,16 +74,16 @@ public class Tuyaux {
 
         // Rectangle
         Rect rTop = new Rect(
-            0 + offset,
-            0,
-            rectWidth + offset,
-            0 + topRectHole
+                0 + offset,
+                0,
+                rectWidth + offset,
+                0 + topRectHole
         );
         Rect rBottom = new Rect(
-            0 + offset,
-            topRectHole + holeSize,
-            rectWidth + offset,
-            view.getHeight() + (topRectHole + holeSize)
+                0 + offset,
+                topRectHole + holeSize,
+                rectWidth + offset,
+                view.getHeight() + (topRectHole + holeSize)
         );
 
         // Storage

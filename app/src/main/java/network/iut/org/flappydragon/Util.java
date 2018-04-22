@@ -1,9 +1,9 @@
 package network.iut.org.flappydragon;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.content.Context;
 
 public class Util {
     private static final int DEFAULT_DENSITY = 1024;
@@ -13,25 +13,25 @@ public class Util {
         bitmapOptions.inPreferredConfig = Bitmap.Config.ALPHA_8;
         bitmapOptions.inScaled = true;
         bitmapOptions.inDensity = DEFAULT_DENSITY;
-        bitmapOptions.inTargetDensity = (int)(getScaleFactor(context) * DEFAULT_DENSITY);
+        bitmapOptions.inTargetDensity = (int) (getScaleFactor(context) * DEFAULT_DENSITY);
         Bitmap b = BitmapFactory.decodeResource(context.getResources(), bitmapId, bitmapOptions);
         b.setDensity(context.getResources().getDisplayMetrics().densityDpi);
         return b;
     }
 
-    public static float getScaleFactor(Context context){
+    public static float getScaleFactor(Context context) {
         return context.getResources().getDisplayMetrics().heightPixels / 1066f;
     }
 
     /**
      * Decode and sample down a bitmap from resources to the requested width and height.
      *
-     * @param res The resources object containing the image data
-     * @param resId The resource id of the image data
-     * @param reqWidth The requested width of the resulting bitmap
+     * @param res       The resources object containing the image data
+     * @param resId     The resource id of the image data
+     * @param reqWidth  The requested width of the resulting bitmap
      * @param reqHeight The requested height of the resulting bitmap
      * @return A bitmap sampled down from the original with the same aspect ratio and dimensions
-     *         that are equal to or greater than the requested width and height
+     * that are equal to or greater than the requested width and height
      */
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
                                                          int reqWidth, int reqHeight) {

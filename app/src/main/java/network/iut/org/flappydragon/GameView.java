@@ -11,7 +11,11 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,6 +30,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Background background;
     private Tuyaux tuyaux;
     private int score;
+    private ArrayList savedScores;
     private int highScore;
     private int framesDraw;
     private UI ui;
@@ -49,9 +54,18 @@ public class GameView extends SurfaceView implements Runnable {
         score = 0;
         highScore = 0;
 
+        // Saved scores
+        Gson gson = new Gson();
+        String json = prefs.getString("jsonSavedScores", null);
+        if (json != null) {
+            savedScores = gson.fromJson(json, new TypeToken<ArrayList<Score>>() {}.getType());
+        } else {
+            savedScores = new ArrayList<Score>();
+        }
+
         paint = new Paint();
         paint.setTextSize(25f);
-        paint.setColor(Color.WHITE);
+        paint.setColor(Color.BLACK);
 
         new Thread(new Runnable() {
             @Override
@@ -64,7 +78,7 @@ public class GameView extends SurfaceView implements Runnable {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (isGameOver) {
                 isGameOver = false;
                 resume();
@@ -140,9 +154,13 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void draw() {
-        while(!holder.getSurface().isValid()){
-			/*wait*/
-            try { Thread.sleep(10); } catch (InterruptedException e) { e.printStackTrace(); }
+        while (!holder.getSurface().isValid()) {
+            /*wait*/
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         Canvas canvas = holder.lockCanvas();
         if (canvas != null) {
@@ -174,7 +192,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     public void checkCollision() {
         for (Rect[] tuyau : tuyaux.getTuyaux()) {
-            for (Rect rect: tuyau) {
+            for (Rect rect : tuyau) {
                 if (Rect.intersects(rect, player.getPosition())) {
                     this.gameOver();
                 }
@@ -185,6 +203,18 @@ public class GameView extends SurfaceView implements Runnable {
     public void gameOver() {
         stopTimer();
         isGameOver = true;
+        if (score > 1) {
+            String pseudo = prefs.getString("pseudo", null);
+            if (pseudo == null) {
+                pseudo = "Joueur1";
+            }
+            Score scoreData = new Score(score, pseudo, Calendar.getInstance().getTime());
+            savedScores.add(scoreData);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(savedScores, new TypeToken<ArrayList<Score>>(){}.getType());
+            prefs.edit().putString("jsonSavedScores", json).apply();
+        }
     }
 
     public void increaseScore(Canvas canvas) {

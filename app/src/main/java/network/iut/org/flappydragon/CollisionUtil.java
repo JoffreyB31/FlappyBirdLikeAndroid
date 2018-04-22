@@ -33,11 +33,11 @@ public class CollisionUtil {
      * Check pixel-perfectly if two views are colliding
      *
      * @param view1 View
-     * @param x1 first view position in x-axis
-     * @param y1 first view position in y-axis
+     * @param x1    first view position in x-axis
+     * @param y1    first view position in y-axis
      * @param view2 View
-     * @param x2 second view position in x-axis
-     * @param y2 second view position in y-axis
+     * @param x2    second view position in x-axis
+     * @param y2    second view position in y-axis
      * @return boolean
      */
     public static boolean isCollisionDetected(View view1, int x1, int y1,
