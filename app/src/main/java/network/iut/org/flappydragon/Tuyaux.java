@@ -1,6 +1,7 @@
 package network.iut.org.flappydragon;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -18,7 +19,10 @@ public class Tuyaux {
     private Context context;
     private GameView view;
     private int offset = 0;
-    private int speed = -10;
+    private int speed;
+    private int speedIncrease;
+    private int difficulty;
+    private SharedPreferences prefs;
     private List<Rect[]> tuyaux;
     private LinearGradient gradient;
     private LinearGradient lastGradient;
@@ -28,6 +32,19 @@ public class Tuyaux {
         this.view = view;
         this.offset = view.getWidth() + 10;
         this.tuyaux = new ArrayList<>();
+        this.prefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        this.difficulty = prefs.getInt("difficulty", 0);
+
+        if (difficulty == 1) {
+            this.speed = -10;
+            this.speedIncrease = -1;
+        } else if (difficulty == 2) {
+            this.speed = -15;
+            this.speedIncrease = -1;
+        } else {
+            this.speed = -5;
+            this.speedIncrease = -1;
+        }
         buildTuyaux();
     }
 
@@ -56,7 +73,7 @@ public class Tuyaux {
 
         // Increase speed every 50frames
         if (frames % 50 == 0) {
-            speed += -2;
+            speed += speedIncrease;
         }
     }
 
@@ -91,22 +108,14 @@ public class Tuyaux {
         tuyaux.add(obs);
     }
 
-    public void removeTuyau() {
-        tuyaux.remove(0);
-    }
-
     public List<Rect[]> getTuyaux() {
         return this.tuyaux;
     }
 
     public void buildTuyaux() {
-        int nb = 50;
-        for (int i = 0, l = nb; i < l; i++) {
+        int initialTuyaux = 10;
+        for (int i = 0, l = initialTuyaux; i < l; i++) {
             addTuyau();
         }
-    }
-
-    public boolean passTuyau() {
-        return false;
     }
 }

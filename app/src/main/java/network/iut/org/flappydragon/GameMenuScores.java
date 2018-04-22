@@ -57,17 +57,17 @@ public class GameMenuScores extends Activity {
         Gson gson = new Gson();
         String json = prefs.getString("jsonSavedScores", null);
         ArrayList<Score> savedScores = gson.fromJson(json, new TypeToken<ArrayList<Score>>() {}.getType());
-
-        // Sort scores descending
-        Collections.sort(savedScores, new Comparator<Score>() {
-            @Override
-            public int compare(Score s1, Score s2) {
-                return s2.getScore() - s1.getScore();
-            }
-        });
-
         ArrayList<String> values = new ArrayList<>();
+
         if (savedScores != null) {
+            // Sort scores descending
+            Collections.sort(savedScores, new Comparator<Score>() {
+                @Override
+                public int compare(Score s1, Score s2) {
+                    return s2.getScore() - s1.getScore();
+                }
+            });
+
             // Display
             for (int i = 0, l = savedScores.size(); i < l; i++) {
                 Score score = (Score)savedScores.get(i);

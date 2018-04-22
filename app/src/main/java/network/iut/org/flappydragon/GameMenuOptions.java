@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class GameMenuOptions extends Activity {
@@ -20,14 +21,23 @@ public class GameMenuOptions extends Activity {
 
         // Preferences
         prefs = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String pseudo = prefs.getString("pseudo", "Joueur1");
         int difficulty = prefs.getInt("difficulty", 0);
+        int fps = prefs.getInt("fps", 30);
 
+        // Buttons
+        EditText pseudoBlk = findViewById(R.id.pseudoBlock);
         ToggleButton easyBtn = findViewById(R.id.difficultyEasy);
         ToggleButton mediumBtn = findViewById(R.id.difficultyMedium);
         ToggleButton hardBtn = findViewById(R.id.difficultyHard);
+        EditText fpsCounter = findViewById(R.id.fpsCounter);
         Button backBtn = findViewById(R.id.backBtn);
 
-        // Check the corresponding btn
+        // Load the pseudo
+        pseudoBlk.setText(pseudo);
+        // Load FPS
+        fpsCounter.setText(String.valueOf(fps));
+        // Load difficulty button
         switch (difficulty) {
             case 0:
                 checkEasyBtn(true);
@@ -81,10 +91,15 @@ public class GameMenuOptions extends Activity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homeIntent = new Intent(getApplicationContext(), GameMenuHome.class);
-                startActivity(homeIntent);
+                // Pseudo
                 EditText pseudo = findViewById(R.id.pseudoBlock);
                 prefs.edit().putString("pseudo", pseudo.getText().toString()).apply();
+                // FPS
+                EditText fps = findViewById(R.id.fpsCounter);
+                int fpsInt = Integer.parseInt(fps.getText().toString());
+                prefs.edit().putInt("fps", fpsInt < 10 ? 10 : fpsInt).apply();
+                Intent homeIntent = new Intent(getApplicationContext(), GameMenuHome.class);
+                startActivity(homeIntent);
             }
         });
     }

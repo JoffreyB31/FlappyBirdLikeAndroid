@@ -20,7 +20,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameView extends SurfaceView implements Runnable {
-    public static final long UPDATE_INTERVAL = 15;
     private SurfaceHolder holder;
     private boolean paused = true;
     private boolean isGameOver = false;
@@ -30,6 +29,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Background background;
     private Tuyaux tuyaux;
     private int score;
+    private int difficulty;
     private ArrayList savedScores;
     private int highScore;
     private int framesDraw;
@@ -45,14 +45,17 @@ public class GameView extends SurfaceView implements Runnable {
         // Preferences
         prefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
+        // Init game
         player = new Player(context, this);
         ui = new UI(context, this);
         background = new Background(context, this);
         tuyaux = new Tuyaux(context, this);
         holder = getHolder();
 
+        // Reset score + difficulty
         score = 0;
         highScore = 0;
+        difficulty = prefs.getInt("difficulty", 0);
 
         // Saved scores
         Gson gson = new Gson();
@@ -63,6 +66,7 @@ public class GameView extends SurfaceView implements Runnable {
             savedScores = new ArrayList<Score>();
         }
 
+        // Canvas paint
         paint = new Paint();
         paint.setTextSize(25f);
         paint.setColor(Color.BLACK);
@@ -123,7 +127,10 @@ public class GameView extends SurfaceView implements Runnable {
         Log.i("TIMER", "START TIMER");
         setUpTimerTask();
         timer = new Timer();
-        timer.schedule(timerTask, UPDATE_INTERVAL, UPDATE_INTERVAL);
+
+        int fps = prefs.getInt("fps", 20);
+        int timerTime = 1000/fps;
+        timer.schedule(timerTask, timerTime, timerTime);
     }
 
     private void stopTimer() {
@@ -208,7 +215,7 @@ public class GameView extends SurfaceView implements Runnable {
             if (pseudo == null) {
                 pseudo = "Joueur1";
             }
-            Score scoreData = new Score(score, pseudo, Calendar.getInstance().getTime());
+            Score scoreData = new Score(score, pseudo, Calendar.getInstance().getTime(), difficulty);
             savedScores.add(scoreData);
 
             Gson gson = new Gson();
@@ -218,7 +225,14 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     public void increaseScore(Canvas canvas) {
-        score++;
+        if (difficulty == 1) {
+            score += 2;
+        } else if (difficulty == 2) {
+            score += 3;
+        } else {
+            score++;
+        }
+
         canvas.drawText("RECORD : " + highScore, 5, 30, paint);
         canvas.drawText("SCORE : " + score, 5, 60, paint);
     }

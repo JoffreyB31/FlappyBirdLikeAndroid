@@ -13,11 +13,13 @@ public class Score {
     private int score;
     private String pseudo;
     private Date date;
+    private int difficulty;
 
-    public Score(int score, String pseudo, Date date) {
+    public Score(int score, String pseudo, Date date, int difficulty) {
         this.score = score;
         this.pseudo = pseudo;
         this.date = date;
+        this.difficulty = difficulty;
     }
 
     public int getScore() {
@@ -44,8 +46,24 @@ public class Score {
         this.date = date;
     }
 
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public String getScoreDisplay() {
         SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
-        return this.pseudo + " | Score : " + this.score + " | " + sf.format(this.date);
+
+        String difficutyStr = "Facile";
+        if (difficulty == 1) {
+            difficutyStr = "Moyen";
+        } else if (difficulty == 2) {
+            difficutyStr = "Difficile";
+        }
+
+        return this.pseudo + " | Score : " + this.score + " | " + difficutyStr + " | " + sf.format(this.date);
     }
 }
