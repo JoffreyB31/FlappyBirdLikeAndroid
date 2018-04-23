@@ -9,3 +9,5 @@
 - Sounds
 - Scoring system
 - Options : difficulty, nickname, FPS etc...
+
+# Réalisé par Joffrey Bourdieux - LP APSIO
