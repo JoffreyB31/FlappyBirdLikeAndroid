@@ -6,8 +6,8 @@
 - Animated game
 - Collisions
 - Parralax animated background
-- Sounds
+- Sounds (Service by : https://stackoverflow.com/questions/8209858/android-background-music-service)
 - Scoring system
 - Options : difficulty, nickname, FPS etc...
 
-- Réalisé par Joffrey Bourdieux - LP APSIO | IUT Blagnac 2018
+- Made by Joffrey Bourdieux - LP APSIO | IUT Blagnac 2018
