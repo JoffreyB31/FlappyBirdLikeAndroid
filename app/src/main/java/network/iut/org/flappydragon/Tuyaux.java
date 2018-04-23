@@ -63,6 +63,12 @@ public class Tuyaux {
             paint.setShader(lastGradient);
         }
 
+        // Check if it's out of screen
+        if (isFirstTuyauOutOfScreen()) {
+            removeTuyau();
+            addTuyau();
+        }
+
         // Draw
         for (Rect[] tuyau : tuyaux) {
             tuyau[0].set(tuyau[0].left + speed, tuyau[0].top, tuyau[0].right + speed, tuyau[0].bottom);
@@ -77,9 +83,29 @@ public class Tuyaux {
         }
     }
 
+    public boolean isFirstTuyauOutOfScreen() {
+        Rect[] firstTuyau = tuyaux.get(0);
+        if (firstTuyau[0].right < 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public void removeTuyau() {
+        tuyaux.remove(0);
+    }
+
+    public int getLastTuyauxX() {
+        if (tuyaux.size() == 0) {
+            return 0;
+        } else {
+            return tuyaux.get(tuyaux.size() - 1)[0].right;
+        }
+    }
+
     public void addTuyau() {
-        Log.e("Tuyau", "Ajouté");
-        offset += view.getWidth() / 3;
+        int offset = 400;
+        int startOffset = (tuyaux.size() == 0) ? view.getWidth() : 0;
 
         // Random hole placement
         Random r = new Random();
@@ -91,15 +117,15 @@ public class Tuyaux {
 
         // Rectangle
         Rect rTop = new Rect(
-                0 + offset,
+                0 + getLastTuyauxX() + offset + startOffset,
                 0,
-                rectWidth + offset,
+                rectWidth + getLastTuyauxX() + offset + startOffset,
                 0 + topRectHole
         );
         Rect rBottom = new Rect(
-                0 + offset,
+                0 + getLastTuyauxX() + offset + startOffset,
                 topRectHole + holeSize,
-                rectWidth + offset,
+                rectWidth + getLastTuyauxX() + offset + startOffset,
                 view.getHeight() + (topRectHole + holeSize)
         );
 
@@ -113,7 +139,7 @@ public class Tuyaux {
     }
 
     public void buildTuyaux() {
-        int initialTuyaux = 10;
+        int initialTuyaux = 5;
         for (int i = 0, l = initialTuyaux; i < l; i++) {
             addTuyau();
         }
