@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -37,10 +38,14 @@ public class GameView extends SurfaceView implements Runnable {
     private Context context;
     private Paint paint;
     private SharedPreferences prefs;
+    private MediaPlayer crashSong;
 
     public GameView(Context context) {
         super(context);
         this.context = context;
+
+        // Songs
+        this.crashSong = MediaPlayer.create(context, R.raw.crash);
 
         // Preferences
         prefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
@@ -209,6 +214,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     public void gameOver() {
         stopTimer();
+        crashSong.start();
         isGameOver = true;
         if (score > 1) {
             String pseudo = prefs.getString("pseudo", null);

@@ -19,6 +19,7 @@
         <activity android:name=".GameMenuOptions"></activity>
         <activity android:name=".GameMenuScores"></activity>
         <activity android:name=".GameMenuAbout"></activity>
+        <service android:name=".MusicService"  android:enabled="true"></service>
     </application>
 
 </manifest>

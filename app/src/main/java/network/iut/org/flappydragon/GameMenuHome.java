@@ -1,20 +1,27 @@
 package network.iut.org.flappydragon;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 public class GameMenuHome extends Activity {
     private SharedPreferences prefs;
+    private Intent musicService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+        // Music
+        startService(new Intent(this, MusicService.class));
 
         // Pseudo
         prefs = getSharedPreferences("preferences", Context.MODE_PRIVATE);
@@ -34,6 +41,7 @@ public class GameMenuHome extends Activity {
             @Override
             public void onClick(View v) {
                 Intent gameActivityIntent = new Intent(getApplicationContext(), GameActivity.class);
+                //stopService(new Intent(getApplicationContext(), MusicService.class));
                 startActivity(gameActivityIntent);
             }
         });

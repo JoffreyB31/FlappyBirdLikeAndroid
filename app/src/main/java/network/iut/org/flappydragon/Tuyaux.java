@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class Tuyaux {
     private List<Rect[]> tuyaux;
     private LinearGradient gradient;
     private LinearGradient lastGradient;
+    private MediaPlayer passSong;
 
     public Tuyaux(Context context, GameView view) {
         this.context = context;
@@ -34,6 +36,7 @@ public class Tuyaux {
         this.tuyaux = new ArrayList<>();
         this.prefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
         this.difficulty = prefs.getInt("difficulty", 0);
+        this.passSong = MediaPlayer.create(context, R.raw.pass);
 
         if (difficulty == 1) {
             this.speed = -10;
@@ -65,6 +68,7 @@ public class Tuyaux {
 
         // Check if it's out of screen
         if (isFirstTuyauOutOfScreen()) {
+            passSong.start();
             removeTuyau();
             addTuyau();
         }

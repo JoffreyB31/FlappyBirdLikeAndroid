@@ -5,7 +5,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.util.Log;
+
+import java.io.IOException;
 
 public class Player {
     /**
@@ -26,6 +29,7 @@ public class Player {
     private float speedY;
     private Context context;
     private GameView view;
+    private MediaPlayer jumpSong;
 
     public Player(Context context, GameView view) {
         this.context = context;
@@ -49,9 +53,12 @@ public class Player {
         this.view = view;
         this.x = 0;
         this.speedX = 0;
+
+        this.jumpSong = MediaPlayer.create(context, R.raw.jump);
     }
 
     public void onTap() {
+        playJumpSong();
         changePlayerImage("TAP");
         this.speedY = getTabSpeed();
         this.y += getPosTabIncrease();
@@ -117,7 +124,6 @@ public class Player {
     protected void changeToNextFrame() {
         this.frameTimeCounter++;
         if (this.frameTimeCounter >= this.frameTime) {
-            //TODO Change frame
             this.frameTimeCounter = 0;
         }
     }
@@ -150,5 +156,9 @@ public class Player {
 
     public Rect getPosition() {
         return new Rect(x, y, x + this.bitmap.getWidth(), y + this.bitmap.getHeight());
+    }
+
+    public void playJumpSong() {
+        jumpSong.start();
     }
 }

@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FlappyBirdLikeAndroid.iml" filepath="$PROJECT_DIR$/FlappyBirdLikeAndroid.iml" />
-      <module fileurl="file://D:\android\FlappyBirdLikeAndroid\FlappyBirdLikeAndroid.iml" filepath="D:\android\FlappyBirdLikeAndroid\FlappyBirdLikeAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\android\FlappyBirdLikeAndroid\app\app.iml" filepath="D:\android\FlappyBirdLikeAndroid\app\app.iml" />
     </modules>
   </component>
 </project>
