@@ -10,4 +10,4 @@
 - Scoring system
 - Options : difficulty, nickname, FPS etc...
 
-# Réalisé par Joffrey Bourdieux - LP APSIO
+- Réalisé par Joffrey Bourdieux - LP APSIO | IUT Blagnac 2018
